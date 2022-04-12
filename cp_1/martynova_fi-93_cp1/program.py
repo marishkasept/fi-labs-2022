@@ -19,10 +19,12 @@ def exception_symbols(char):
 
 data_list = []
 monogram_dict = {}
+bigram_dict = {}
 letters_amount = 0
+bigram_amount = 0
 
 
-def mono_freq(dict, num):
+def gram_freq(dict, num):
     for key in dict:
         dict[key] /= num
     mono_list = list(dict.items())
@@ -30,7 +32,7 @@ def mono_freq(dict, num):
     return mono_list
 
 
-def print_mono_chart(list):
+def print_chart(list):
     for i in list:
         print(i[0], ':', i[1])
 
@@ -40,7 +42,6 @@ with open('MasterMargo.txt', 'r') as text:
     for char in text.read():
         if char == ' ' and prev == ' ':
             continue
-        prev = char
         char = exception_symbols(char)
         char = lower_case(char)
         if char in ALPHABET:
@@ -49,10 +50,18 @@ with open('MasterMargo.txt', 'r') as text:
                 monogram_dict[char] += 1
             else:
                 monogram_dict[char] = 1
+            bigram = prev + char
+            if prev != ' ' and char != ' ':
+                if bigram in bigram_dict:
+                    bigram_dict[bigram] += 1
+                else:
+                    bigram_dict[bigram] = 1
+                bigram_amount += 1
             letters_amount += 1
-    monogram_list = mono_freq(monogram_dict, letters_amount)
-    print_mono_chart(monogram_list)
-
-
-def init_input_processing(data):
-    pass
+            prev = char
+    monogram_list = gram_freq(monogram_dict, letters_amount)
+    bigram_list = gram_freq(bigram_dict, bigram_amount)
+    print(f'\nMonogram list:\n')
+    print_chart(monogram_list)
+    print(f'\nBigram list:\n')
+    print_chart(bigram_list)
