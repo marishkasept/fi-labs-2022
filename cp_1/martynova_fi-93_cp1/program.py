@@ -18,8 +18,21 @@ def exception_symbols(char):
 
 
 data_list = []
-monogram_list = {}
+monogram_dict = {}
 letters_amount = 0
+
+
+def mono_freq(dict, num):
+    for key in dict:
+        dict[key] /= num
+    mono_list = list(dict.items())
+    mono_list.sort(key=lambda i: i[1], reverse=True)
+    return mono_list
+
+
+def print_mono_chart(list):
+    for i in list:
+        print(i[0], ':', i[1])
 
 
 with open('MasterMargo.txt', 'r') as text:
@@ -32,10 +45,13 @@ with open('MasterMargo.txt', 'r') as text:
         char = lower_case(char)
         if char in ALPHABET:
             data_list.append(char)
-            if char in monogram_list: monogram_list[char] += 1
-            else: monogram_list[char] = 1
+            if char in monogram_dict:
+                monogram_dict[char] += 1
+            else:
+                monogram_dict[char] = 1
             letters_amount += 1
-    print(monogram_list)
+    monogram_list = mono_freq(monogram_dict, letters_amount)
+    print_mono_chart(monogram_list)
 
 
 def init_input_processing(data):
