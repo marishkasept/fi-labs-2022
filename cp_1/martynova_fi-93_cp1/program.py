@@ -1,11 +1,13 @@
+ALPHABET = tuple([' ', 'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к',
+                  'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
+                  'ч', 'ш', 'щ', 'ы', 'ь', 'э', 'ю', 'я'])
 
-ALPHABET = tuple([' ','а','б','в','г','д','е','ж','з','и','й','к',
-                  'л','м','н','о','п','р','с','т','у','ф','х','ц',
-                  'ч','ш','щ','ы','ь','э','ю','я'])
+
 def lower_case(char):
     if ord(char) > 1039 and ord(char) < 1072:
         char = chr(ord(char) + 32)
     return char
+
 
 def exception_symbols(char):
     if ord(char) == 1066 or ord(char) == 1098:
@@ -14,7 +16,11 @@ def exception_symbols(char):
         char = chr(1077)
     return char
 
+
 data_list = []
+monogram_list = {}
+letters_amount = 0
+
 
 with open('MasterMargo.txt', 'r') as text:
     prev = 'а'
@@ -26,7 +32,10 @@ with open('MasterMargo.txt', 'r') as text:
         char = lower_case(char)
         if char in ALPHABET:
             data_list.append(char)
-    print(data_list)
+            if char in monogram_list: monogram_list[char] += 1
+            else: monogram_list[char] = 1
+            letters_amount += 1
+    print(monogram_list)
 
 
 def init_input_processing(data):
