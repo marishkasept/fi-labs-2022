@@ -1,6 +1,14 @@
+from math import log2
+
 ALPHABET = tuple([' ', 'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к',
                   'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
                   'ч', 'ш', 'щ', 'ы', 'ь', 'э', 'ю', 'я'])
+
+
+# H_1 = H(x1)
+# H_2 = 1/2 * H(x1,x2)
+# H(x1) - ентропія монограми відкритого тексту
+# H(x1,x2) - ентропія біграми відкритого тексту
 
 
 def lower_case(char):
@@ -17,13 +25,6 @@ def exception_symbols(char):
     return char
 
 
-data_list = []
-monogram_dict = {}
-bigram_dict = {}
-letters_amount = 0
-bigram_amount = 0
-
-
 def gram_freq(dict, num):
     for key in dict:
         dict[key] /= num
@@ -35,6 +36,20 @@ def gram_freq(dict, num):
 def print_chart(list):
     for i in list:
         print(i[0], ':', i[1])
+
+
+def mono_entropy(mono_list):
+    H_1 = 0
+    for char in mono_list:
+        H_1 -= char[1]*log2(char[1])
+    return H_1
+
+
+data_list = []
+monogram_dict = {}
+bigram_dict = {}
+letters_amount = 0
+bigram_amount = 0
 
 
 with open('MasterMargo.txt', 'r') as text:
@@ -65,3 +80,4 @@ with open('MasterMargo.txt', 'r') as text:
     print_chart(monogram_list)
     print(f'\nBigram list:\n')
     print_chart(bigram_list)
+    print(f'\nH_1 = {mono_entropy(monogram_list)}')
