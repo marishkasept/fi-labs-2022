@@ -45,6 +45,13 @@ def mono_entropy(mono_list):
     return H_1
 
 
+def bi_entropy(bi_list):
+    H_2 = 0
+    for char in bi_list:
+        H_2 -= char[1]*log2(char[1])
+    return H_2
+
+
 data_list = []
 monogram_dict = {}
 bigram_dict = {}
@@ -81,3 +88,4 @@ with open('MasterMargo.txt', 'r') as text:
     print(f'\nBigram list:\n')
     print_chart(bigram_list)
     print(f'\nH_1 = {mono_entropy(monogram_list)}')
+    print(f'\nH_2 = {bi_entropy(bigram_list)}')
