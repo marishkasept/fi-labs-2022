@@ -55,8 +55,11 @@ def bi_entropy(bi_list):
 data_list = []
 monogram_dict = {}
 bigram_dict = {}
+no_cross_bigram_dict = {}
 letters_amount = 0
 bigram_amount = 0
+no_cross_bigram_amount = 0
+
 
 print('\nConsidering spaces:')
 
@@ -91,45 +94,66 @@ with open('MasterMargo.txt', 'r') as text:
     print(f'\nH_1 = {mono_entropy(monogram_list)}')
     print(f'\nH_2 = {bi_entropy(bigram_list)}')
 
+prev = ' '
+i = 0
+while i < len(data_list):
+    if i > 0:
+        prev = data_list[i-1]
+    char = data_list[i]
+    if char == ' ' or prev == ' ':
+        i += 1
+        continue
+    bigram = prev + char
+    if bigram in no_cross_bigram_dict:
+        no_cross_bigram_dict[bigram] += 1
+    else:
+        no_cross_bigram_dict[bigram] = 1
+    no_cross_bigram_amount += 1
+    i += 2
 
-ALPHABET2 = tuple(['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к',
-                  'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
-                  'ч', 'ш', 'щ', 'ы', 'ь', 'э', 'ю', 'я'])
+no_cross_bigram_list = gram_freq(no_cross_bigram_dict, no_cross_bigram_amount)
+print(no_cross_bigram_dict)
+# print_chart(no_cross_bigram_list)
 
-
-data_list2 = []
-monogram_dict2 = {}
-bigram_dict2 = {}
-letters_amount2 = 0
-bigram_amount2 = 0
-
-print('\nNot considering spaces:')
-
-with open('MasterMargo.txt', 'r') as text:
-    prev = ' '
-    for char in text.read():
-        char = exception_symbols(char)
-        char = lower_case(char)
-        if char in ALPHABET2:
-            data_list2.append(char)
-            if char in monogram_dict2:
-                monogram_dict2[char] += 1
-            else:
-                monogram_dict2[char] = 1
-            bigram = prev + char
-            if prev != ' ':
-                if bigram in bigram_dict2:
-                    bigram_dict2[bigram] += 1
-                else:
-                    bigram_dict2[bigram] = 1
-                bigram_amount2 += 1
-            letters_amount2 += 1
-            prev = char
-    monogram_list2 = gram_freq(monogram_dict2, letters_amount2)
-    bigram_list2 = gram_freq(bigram_dict2, bigram_amount2)
-    print(f'\nMonogram list:\n')
-    print_chart(monogram_list2)
-    print(f'\nBigram list:\n')
-    print_chart(bigram_list2)
-    print(f'\nH_1 = {mono_entropy(monogram_list2)}')
-    print(f'\nH_2 = {bi_entropy(bigram_list2)}')
+#
+# ALPHABET2 = tuple(['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к',
+#                   'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
+#                   'ч', 'ш', 'щ', 'ы', 'ь', 'э', 'ю', 'я'])
+#
+#
+# data_list2 = []
+# monogram_dict2 = {}
+# bigram_dict2 = {}
+# letters_amount2 = 0
+# bigram_amount2 = 0
+#
+# print('\nNot considering spaces:')
+#
+# with open('MasterMargo.txt', 'r') as text:
+#     prev = ' '
+#     for char in text.read():
+#         char = exception_symbols(char)
+#         char = lower_case(char)
+#         if char in ALPHABET2:
+#             data_list2.append(char)
+#             if char in monogram_dict2:
+#                 monogram_dict2[char] += 1
+#             else:
+#                 monogram_dict2[char] = 1
+#             bigram = prev + char
+#             if prev != ' ':
+#                 if bigram in bigram_dict2:
+#                     bigram_dict2[bigram] += 1
+#                 else:
+#                     bigram_dict2[bigram] = 1
+#                 bigram_amount2 += 1
+#             letters_amount2 += 1
+#             prev = char
+#     monogram_list2 = gram_freq(monogram_dict2, letters_amount2)
+#     bigram_list2 = gram_freq(bigram_dict2, bigram_amount2)
+#     print(f'\nMonogram list:\n')
+#     print_chart(monogram_list2)
+#     print(f'\nBigram list:\n')
+#     print_chart(bigram_list2)
+#     print(f'\nH_1 = {mono_entropy(monogram_list2)}')
+#     print(f'\nH_2 = {bi_entropy(bigram_list2)}')
