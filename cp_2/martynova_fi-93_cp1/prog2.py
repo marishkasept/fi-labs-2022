@@ -1,3 +1,4 @@
+#Var = 10
 ALPHABET = tuple(['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к',
                   'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
                   'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'])
@@ -37,15 +38,30 @@ def exception_symbols(char):
 def convert_chr_to_num(list, dict):
     for i in range(len(list)):
         for j in range (32):
-            if list[i] == dict[f'{j}']:
+            if list[i] == dict[j]:
                 list[i] = j
                 break
     return list
 
+def convert_num_to_chr(list, dict):
+    for i in range(len(list)):
+        list[i] = dict[list[i]]
+    return list
 
+def enciphering(plaintext, key):
+    data_list = convert_chr_to_num(plaintext, ALPHABET_DICT)
+    key_len = len(key)
+    cipher_data = []
+    for i in range(len(data_list)):
+        cipher_data.append((data_list[i] + key[i % key_len])%32)
+    ciphertext = convert_num_to_chr(cipher_data, ALPHABET_DICT)
+    return ciphertext
 
+def print_text(list):
+    for i in range(len(list)):
+        print(list[i], end='')
 
-data_list = []
+plaintext = []
 letters_amount = 0
 
 
@@ -54,6 +70,37 @@ with open('Shakespear.txt', 'r') as text:
         char = exception_symbols(char)
         char = lower_case(char)
         if char in ALPHABET:
-            data_list.append(char)
-    print('Your plaintext: \n')
-    print(data_list)
+            plaintext.append(char)
+    print('\nYour plaintext: \n')
+    print_text(plaintext)
+    print('\n\nYour ciphertext with key length 2: \n')
+    print_text(enciphering(plaintext, r2))
+    print('\n\nYour ciphertext with key length 3: \n')
+    print_text(enciphering(plaintext, r3))
+    print('\n\nYour ciphertext with key length 4: \n')
+    print_text(enciphering(plaintext, r4))
+    print('\n\nYour ciphertext with key length 5: \n')
+    print_text(enciphering(plaintext, r5))
+    print('\n\nYour ciphertext with key length 10: \n')
+    print_text(enciphering(plaintext, r10))
+    print('\n\nYour ciphertext with key length 11: \n')
+    print_text(enciphering(plaintext, r11))
+    print('\n\nYour ciphertext with key length 12: \n')
+    print_text(enciphering(plaintext, r12))
+    print('\n\nYour ciphertext with key length 13: \n')
+    print_text(enciphering(plaintext, r13))
+    print('\n\nYour ciphertext with key length 14: \n')
+    print_text(enciphering(plaintext, r14))
+    print('\n\nYour ciphertext with key length 15: \n')
+    print_text(enciphering(plaintext, r15))
+    print('\n\nYour ciphertext with key length 16: \n')
+    print_text(enciphering(plaintext, r16))
+    print('\n\nYour ciphertext with key length 17: \n')
+    print_text(enciphering(plaintext, r17))
+    print('\n\nYour ciphertext with key length 18: \n')
+    print_text(enciphering(plaintext, r18))
+    print('\n\nYour ciphertext with key length 19: \n')
+    print_text(enciphering(plaintext, r19))
+    print('\n\nYour ciphertext with key length 20: \n')
+    print_text(enciphering(plaintext, r20))
+
