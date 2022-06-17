@@ -4,6 +4,10 @@ ALPHABET = tuple([' ', 'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й
                   'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
                   'ч', 'ш', 'щ', 'ы', 'ь', 'э', 'ю', 'я'])
 
+H0_mono = log2(len(ALPHABET))
+H0_bi = log2(32 * 32)
+print(f"For monograms H0 = {H0_mono}")
+print(f"For bigrams H0 = {H0_bi}")
 
 # H_1 = H(x1)
 # H_2 = 1/2 * H(x1,x2)
@@ -49,7 +53,7 @@ def bi_entropy(bi_list):
     H_2 = 0
     for char in bi_list:
         H_2 -= char[1]*log2(char[1])
-    return H_2
+    return H_2/2
 
 
 data_list = []
@@ -88,11 +92,14 @@ with open('MasterMargo.txt', 'r') as text:
     monogram_list = gram_freq(monogram_dict, letters_amount)
     bigram_list = gram_freq(bigram_dict, bigram_amount)
     print(f'\nMonogram list:\n')
-    print_chart(monogram_list)
+    # print_chart(monogram_list)
     print(f'\nH_1 = {mono_entropy(monogram_list)}')
+    print(f'\nR = {1 - mono_entropy(monogram_list)/H0_mono}')
     print(f'\nCrossing bigram list:\n')
-    print_chart(bigram_list)
+    # print_chart(bigram_list)
+    print(H0_bi)
     print(f'\nH_2 = {bi_entropy(bigram_list)}')
+    print(f'\nR = {1 - bi_entropy(bigram_list) / H0_bi}')
 
 prev = ' '
 i = 0
@@ -113,8 +120,10 @@ while i < len(data_list):
 
 no_cross_bigram_list = gram_freq(no_cross_bigram_dict, no_cross_bigram_amount)
 print(f'\nNo crossing bigram list:\n')
-print_chart(no_cross_bigram_list)
+# print_chart(no_cross_bigram_list)
+print(H0_bi)
 print(f'\nH_2 = {bi_entropy(no_cross_bigram_list)}')
+print(f'\nR = {1 - bi_entropy(no_cross_bigram_list) / H0_bi}')
 
 
 ALPHABET2 = tuple(['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к',
@@ -155,11 +164,13 @@ with open('MasterMargo.txt', 'r') as text:
     monogram_list2 = gram_freq(monogram_dict2, letters_amount2)
     bigram_list2 = gram_freq(bigram_dict2, bigram_amount2)
     print(f'\nMonogram list:\n')
-    print_chart(monogram_list2)
+    # print_chart(monogram_list2)
     print(f'\nH_1 = {mono_entropy(monogram_list2)}')
+    print(f'\nR = {1 - mono_entropy(monogram_list2) / H0_mono}')
     print(f'\nCrossing bigram list:\n')
-    print_chart(bigram_list2)
+    # print_chart(bigram_list2)
     print(f'\nH_2 = {bi_entropy(bigram_list2)}')
+    print(f'\nR = {1 - bi_entropy(bigram_list2) / H0_bi}')
 
 
 i = 1
@@ -176,5 +187,7 @@ while i < len(data_list2):
 
 no_cross_bigram_list2 = gram_freq(no_cross_bigram_dict2, no_cross_bigram_amount2)
 print(f'\nNo crossing bigram list:\n')
-print_chart(no_cross_bigram_list2)
+# print_chart(no_cross_bigram_list2)
+print(H0_bi)
 print(f'\nH_2 = {bi_entropy(no_cross_bigram_list2)}')
+print(f'\nR = {1 - bi_entropy(no_cross_bigram_list2) / H0_bi}')
