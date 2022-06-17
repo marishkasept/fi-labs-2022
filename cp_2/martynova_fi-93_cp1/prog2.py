@@ -57,12 +57,27 @@ def enciphering(plaintext, key):
     ciphertext = convert_num_to_chr(cipher_data, ALPHABET_DICT)
     return ciphertext
 
+def match_index(text_list):
+    n = len(text_list)
+    Ind_Y = 0
+    for char in text_list:
+        if char in Nt_dict:
+            Nt_dict[char] += 1
+        else:
+            Nt_dict[char] = 1
+    # print(Nt_dict)
+    for letter in Nt_dict.keys():
+        Ind_Y += Nt_dict[letter]*(Nt_dict[letter] - 1)
+    return Ind_Y/(n*(n-1))
+
+
 def print_text(list):
     for i in range(len(list)):
         print(list[i], end='')
 
 plaintext = []
 letters_amount = 0
+Nt_dict = {}
 
 
 with open('Shakespear.txt', 'r') as text:
@@ -73,34 +88,75 @@ with open('Shakespear.txt', 'r') as text:
             plaintext.append(char)
     print('\nYour plaintext: \n')
     print_text(plaintext)
+    print(f'\nI(Y) = {match_index(plaintext)}')
     print('\n\nYour ciphertext with key length 2: \n')
-    print_text(enciphering(plaintext, r2))
+    ciphertext = enciphering(plaintext, r2)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 3: \n')
-    print_text(enciphering(plaintext, r3))
+    ciphertext = enciphering(plaintext, r3)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 4: \n')
-    print_text(enciphering(plaintext, r4))
+    ciphertext = enciphering(plaintext, r4)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 5: \n')
-    print_text(enciphering(plaintext, r5))
+    ciphertext = enciphering(plaintext, r5)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 10: \n')
-    print_text(enciphering(plaintext, r10))
+    ciphertext = enciphering(plaintext, r10)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 11: \n')
-    print_text(enciphering(plaintext, r11))
+    ciphertext = enciphering(plaintext, r11)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 12: \n')
-    print_text(enciphering(plaintext, r12))
+    ciphertext = enciphering(plaintext, r12)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 13: \n')
-    print_text(enciphering(plaintext, r13))
+    ciphertext = enciphering(plaintext, r13)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 14: \n')
-    print_text(enciphering(plaintext, r14))
+    ciphertext = enciphering(plaintext, r14)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 15: \n')
-    print_text(enciphering(plaintext, r15))
+    ciphertext = enciphering(plaintext, r15)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 16: \n')
-    print_text(enciphering(plaintext, r16))
+    ciphertext = enciphering(plaintext, r16)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 17: \n')
-    print_text(enciphering(plaintext, r17))
+    ciphertext = enciphering(plaintext, r17)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 18: \n')
-    print_text(enciphering(plaintext, r18))
+    ciphertext = enciphering(plaintext, r18)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 19: \n')
-    print_text(enciphering(plaintext, r19))
+    ciphertext = enciphering(plaintext, r19)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
     print('\n\nYour ciphertext with key length 20: \n')
-    print_text(enciphering(plaintext, r20))
+    ciphertext = enciphering(plaintext, r20)
+    print_text(ciphertext)
+    print(f'\nI(Y) = {match_index(ciphertext)}')
 
+
+with open('ciphertext.txt', 'r') as text:
+    for char in text.read():
+        char = exception_symbols(char)
+        char = lower_case(char)
+        if char in ALPHABET:
+            ciphertext.append(char)
+
+    print('\nYour ciphertext: \n')
+    print_text(ciphertext)
