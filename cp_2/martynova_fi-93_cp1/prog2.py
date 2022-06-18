@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 # Var = 10
 ALPHABET = tuple(['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к',
                   'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц',
@@ -54,6 +52,16 @@ def exception_symbols(char):
         char = chr(1077)
     return char
 
+def one_chr_to_num(smb):
+    for j in range(32):
+        if smb == ALPHABET_DICT[j]:
+            smb = j
+            break
+    return smb
+
+def one_num_to_chr(smb):
+    smb = ALPHABET_DICT[smb]
+    return smb
 
 def convert_chr_to_num(list, dict):
     for i in range(len(list)):
@@ -89,7 +97,6 @@ def match_index(text_list):
             Nt_dict[char] += 1
         else:
             Nt_dict[char] = 1
-    # print(Nt_dict)
     for letter in Nt_dict.keys():
         Ind_Y += Nt_dict[letter] * (Nt_dict[letter] - 1)
     return Ind_Y / (n * (n - 1))
@@ -109,81 +116,88 @@ with open('Shakespear.txt', 'r') as text:
         char = lower_case(char)
         if char in ALPHABET:
             plaintext.append(char)
-    # print('\nYour plaintext: \n')
-    # print_text(plaintext)
-    # print(f'\nI(Y) = {match_index(plaintext)}')
-    # print('\n\nYour ciphertext with key length 2: \n')
-    # ciphertext = enciphering(plaintext, r2)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 3: \n')
-    # ciphertext = enciphering(plaintext, r3)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 4: \n')
-    # ciphertext = enciphering(plaintext, r4)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 5: \n')
-    # ciphertext = enciphering(plaintext, r5)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 10: \n')
-    # ciphertext = enciphering(plaintext, r10)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 11: \n')
-    # ciphertext = enciphering(plaintext, r11)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 12: \n')
-    # ciphertext = enciphering(plaintext, r12)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 13: \n')
-    # ciphertext = enciphering(plaintext, r13)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 14: \n')
-    # ciphertext = enciphering(plaintext, r14)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 15: \n')
-    # ciphertext = enciphering(plaintext, r15)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 16: \n')
-    # ciphertext = enciphering(plaintext, r16)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 17: \n')
-    # ciphertext = enciphering(plaintext, r17)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 18: \n')
-    # ciphertext = enciphering(plaintext, r18)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 19: \n')
-    # ciphertext = enciphering(plaintext, r19)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
-    # print('\n\nYour ciphertext with key length 20: \n')
-    # ciphertext = enciphering(plaintext, r20)
-    # print_text(ciphertext)
-    # print(f'\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour plaintext: \n')
+    print_text(plaintext)
+    print(f'\n\nI(Y) = {match_index(plaintext)}')
+    print('\nYour ciphertext with key length 2: \n')
+    ciphertext = enciphering(plaintext, r2)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 3: \n')
+    ciphertext = enciphering(plaintext, r3)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 4: \n')
+    ciphertext = enciphering(plaintext, r4)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 5: \n')
+    ciphertext = enciphering(plaintext, r5)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 10: \n')
+    ciphertext = enciphering(plaintext, r10)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 11: \n')
+    ciphertext = enciphering(plaintext, r11)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 12: \n')
+    ciphertext = enciphering(plaintext, r12)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 13: \n')
+    ciphertext = enciphering(plaintext, r13)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 14: \n')
+    ciphertext = enciphering(plaintext, r14)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 15: \n')
+    ciphertext = enciphering(plaintext, r15)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 16: \n')
+    ciphertext = enciphering(plaintext, r16)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 17: \n')
+    ciphertext = enciphering(plaintext, r17)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 18: \n')
+    ciphertext = enciphering(plaintext, r18)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 19: \n')
+    ciphertext = enciphering(plaintext, r19)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
+    print('\nYour ciphertext with key length 20: \n')
+    ciphertext = enciphering(plaintext, r20)
+    print_text(ciphertext)
+    print(f'\n\nI(Y) = {match_index(ciphertext)}')
 
 
 def key_selection(our_cipher, plain):
     r = 2
     period = 0
-    Ind_cipher = match_index(our_cipher)
-    print(f'\n\nTheorethic I(Y) = {Ind_cipher}')
+    Ind_theor = match_index(plain)
+    print(f'\n\nTheorethic I(Y) = {Ind_theor}')
     while r <= 30:
-        cipher_temp = enciphering(plain, R[r])
-        Ind = match_index(cipher_temp)
+        Ind_list = []
+        temp_block = []
+        i = 0
+        while i < len(our_cipher):
+            temp_block.append(our_cipher[i])
+            i += r
+        Ind_cipher = match_index(temp_block)
+        Ind_list.append(Ind_cipher)
+        Ind = sum(Ind_list) / len(Ind_list)
         print(f'\nFor r{r} I(Y) = {Ind}')
-        if (abs(Ind - Ind_cipher) < 0.0001):
+        if (abs(Ind_theor - Ind) < 0.001):
             period = r
         r += 1
     return period
@@ -191,6 +205,18 @@ def key_selection(our_cipher, plain):
 
 ciphertext = []
 Key = []
+Key2 = []
+letter_freq_dict = {'о': 0.11007732501130547, 'д': 0.02764581831532665, 'н': 0.0644748212390807,
+                    'а': 0.08735890536081274, 'ж': 0.008974984664842865, 'ы': 0.01701418893809074,
+                    'в': 0.04714273561293616, 'е': 0.08067188136632893, 'с': 0.050771683016705246,
+                    'ю': 0.0053102179159409514, 'ч': 0.016053782746716934, 'б': 0.015373215189193304,
+                    'л': 0.05280443085299293, 'р': 0.047503167773335186, 'к': 0.037014815776630565,
+                    'г': 0.018829781994510686, 'з': 0.017941014493402525, 'т': 0.060207841750133204,
+                    'м': 0.029828559659358028, 'п': 0.028306237491213068, 'и': 0.06854703303886847,
+                    'ш': 0.008592165413735824, 'х': 0.008148901017717144, 'у': 0.03030988210958033,
+                    'я': 0.019091710955794452, 'ь': 0.01802832414716378, 'й': 0.01173979036728261,
+                    'ц': 0.0034140313329721547, 'щ': 0.003523728077441424, 'э': 0.0030491217544315248,
+                    'ф': 0.0022499026161554203, 'ъ': 0.0}
 letter_freq_list = [('о', 0.11007732501130547), ('а', 0.08735890536081274), ('е', 0.08067188136632893),
                     ('и', 0.06854703303886847), ('н', 0.0644748212390807), ('т', 0.060207841750133204),
                     ('л', 0.05280443085299293), ('с', 0.050771683016705246), ('р', 0.047503167773335186),
@@ -227,20 +253,40 @@ def block_key(our_cipher, index, key_per, freq_place):
     block_letter_list = gram_freq(block_letter_dict, len(temp_block))
     Y = block_letter_list[0][0]
     X = letter_freq_list[freq_place][0]
-    for j in range(32):
-        if Y == ALPHABET_DICT[j]:
-            Y = j
-            break
-    for k in range(32):
-        if X == ALPHABET_DICT[k]:
-            X = k
-            break
+    Y = one_chr_to_num(Y)
+    X = one_chr_to_num(X)
     K = (Y - X) % 32
     return K
 
 
-def deciphering(ciphertext, key):
-    data_list = convert_chr_to_num(ciphertext, ALPHABET_DICT)
+def Mg_func(our_cipher, index, key_per):
+    Mg_list = []
+    temp_block = []
+    i = index
+    while i < len(our_cipher):
+        temp_block.append(our_cipher[i])
+        i += key_per
+    Nt_dict = {}
+    for char in temp_block:
+        if char in Nt_dict:
+            Nt_dict[char] += 1
+        else:
+            Nt_dict[char] = 1
+    for g in range(32):
+        mg = 0
+        for t in letter_freq_dict.keys():
+            tg = one_num_to_chr((one_chr_to_num(t) + g)%32)
+            if tg in Nt_dict.keys():
+                mg += letter_freq_dict[t]*Nt_dict[tg]
+        Mg_list.append(mg)
+    argmax = 0
+    for i in range(len(Mg_list)):
+        if Mg_list[argmax] < Mg_list[i]:
+            argmax = i
+    return argmax
+
+def deciphering(our_cipher, key):
+    data_list = convert_chr_to_num(our_cipher, ALPHABET_DICT)
     key_len = len(key)
     plain_data = []
     for i in range(len(data_list)):
@@ -260,17 +306,16 @@ with open('ciphertext.txt', 'r') as text:
     print_text(ciphertext)
     key_period = key_selection(ciphertext, plaintext)
     print(f'\nOur key period: r = {key_period}')
-    Key.append(block_key(ciphertext, 0, key_period, 0))
-    Key.append(block_key(ciphertext, 1, key_period, 0))
-    Key.append(block_key(ciphertext, 2, key_period, 0))
-    Key.append(block_key(ciphertext, 3, key_period, 0))
-    Key.append(block_key(ciphertext, 4, key_period, 0))
-    Key.append(block_key(ciphertext, 5, key_period, 0))
-    Key.append(block_key(ciphertext, 6, key_period, 0))
-    Key.append(block_key(ciphertext, 7, key_period, 0))
-    Key.append(block_key(ciphertext, 8, key_period, 0))
-    Key.append(block_key(ciphertext, 9, key_period, 0))
+    for i in range(key_period):
+        Key.append(block_key(ciphertext, i, key_period, 0))
     print(f'Key founded by first method: {Key}')
     new_plaintext = deciphering(ciphertext, Key)
     print(f'Deciphering with this key:\n ')
+    print_text(new_plaintext)
+    ciphertext = convert_num_to_chr(ciphertext, ALPHABET_DICT)
+    for i in range(key_period):
+        Key2.append(Mg_func(ciphertext, i, key_period))
+    print(f'\n\nKey founded by Mi(g) method: {Key2}')
+    print(f'Deciphering with this key:\n ')
+    new_plaintext = deciphering(ciphertext, Key2)
     print_text(new_plaintext)
