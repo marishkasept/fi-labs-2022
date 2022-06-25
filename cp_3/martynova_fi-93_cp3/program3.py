@@ -5,7 +5,7 @@ ALPHABET = tuple(['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', '�
 ALPHABET_DICT = {0: 'а', 1: 'б', 2: 'в', 3: 'г', 4: 'д', 5: 'е', 6: 'ж', 7: 'з', 8: 'и', 9: 'й', 10: 'к',
                  11: 'л', 12: 'м', 13: 'н', 14: 'о', 15: 'п', 16: 'р', 17: 'с', 18: 'т', 19: 'у', 20: 'ф', 21: 'х',
                  22: 'ц',
-                 23: 'ч', 24: 'ш', 25: 'щ', 26: 'ы', 27: 'ь', 28: 'э', 29: 'ю', 30: 'я'}
+                 23: 'ч', 24: 'ш', 25: 'щ', 26: 'ь', 27: 'ы', 28: 'э', 29: 'ю', 30: 'я'}
 
 rashist_5_bi = ['ст', 'но', 'то', 'на', 'ен']
 
@@ -111,12 +111,11 @@ def list_num_to_bi(list):
 
 def rashism_recognizer(dict):
     banned_bigrams = ['аь', 'оь', 'уь', 'ыь', 'йь', 'еь', 'ць', 'юь', 'ьь', 'аы', 'оы', 'уы', 'ьы',
-                      'йы', 'еы', 'жы', 'щы', 'юы', 'ыы', 'шы', 'хь', 'эы', 'эи', 'эе', 'эю', 'эа',
+                      'йы', 'еы', 'жы', 'щы', 'юы', 'ыы', 'шы', 'хь', 'эы', 'эи', 'эю', 'эа', 'эе',
                       'эь', 'эя', 'эж', 'эч', 'эц', 'эщ', 'гь']
     for key in dict.keys():
         for bi in banned_bigrams:
             if key == bi:
-                print(key)
                 return False
     return True
 
@@ -163,10 +162,11 @@ def enciphering(a, b, m, cipher_list):
                 temp = transform_num_to_bi((a_rev * (num_list[j] - b[i])) % (m ** 2), 31)
                 new_list.append(temp)
             new_list_dict = make_dict(new_list)
-            print('\n')
             if rashism_recognizer(new_list_dict) == True:
+                print('You\'ve found your plaintext:\n')
                 print_text(new_list)
-                return f'Your key is: ({a[i]}, {b[i]})'
+                print (f'\nYour key is: ({a[i]}, {b[i]})')
+                return True
     return False
 
 
@@ -182,7 +182,7 @@ def brute_force(cipher_bi, plain_bi, cipher_list):
         for x1 in num_plain_bi:
             for y2 in num_cipher_bi:
                 for x2 in num_plain_bi:
-                    if y2 != y1 and x2 != x1:
+                    if (y2 != y1 and x2 != x1):
                         if system_equat(x1, y1, x2, y2, 31) != False:
                             a, b = system_equat(x1, y1, x2, y2, 31)
                             if enciphering(a, b, 31, cipher_list) != False:
@@ -196,20 +196,16 @@ def brute_force(cipher_bi, plain_bi, cipher_list):
             break
 
 
-# print(Euclid_alg(12, 27, True))
-# print(linear_comparison(12, 9, 27))
-
 
 data_list = []
 bigram_data = []
 bigram_dict = {}
 bigram_amount = 0
 
-with open('test_text', 'r') as text:
+with open('var.txt', 'r') as text:
     for char in text.read():
         if char in ALPHABET:
             data_list.append(char)
-    letters_amount = len(data_list)
 
 i = 1
 while i < len(data_list):
@@ -226,7 +222,10 @@ while i < len(data_list):
 
 bigram_list = gram_freq(bigram_dict, bigram_amount)
 
-cipher_5_bi = ['иг', 'ль', 'рв', 'шь', 'нй']
-
+cipher_5_bi = ['сг', 'жэ', 'ям', 'нг', 'тм']
+print('\nFive the most frequent bigrams in the ciphertext:')
+print(cipher_5_bi)
+print('\nYour ciphertext:\n')
 print_text(bigram_data)
+print('\n')
 brute_force(cipher_5_bi, rashist_5_bi, bigram_data)
