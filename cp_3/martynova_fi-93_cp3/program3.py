@@ -229,3 +229,4 @@ print('\nYour ciphertext:\n')
 print_text(bigram_data)
 print('\n')
 brute_force(cipher_5_bi, rashist_5_bi, bigram_data)
+
